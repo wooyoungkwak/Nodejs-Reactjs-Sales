@@ -4,14 +4,14 @@ create database sales default character set utf8;
 
 -- ***************************************************************
 -- 회원 정보 테이블
-CREATE TABLE user(
-    userSeq INT PRIMARY KEY AUTO_INCREMENT,
-    id VARCHAR(20) NOT NULL,
-    pw VARCHAR(20) NOT NULL,
-    name VARCHAR(20) NULL,
-    phone VARCHAR(13) DEFAULT 'FOO',
-    email VARCHAR(100) NOT NULL,
-    address VARCHAR(12) NULL
+CREATE TABLE User(
+    UserSeq INT PRIMARY KEY AUTO_INCREMENT,
+    Id VARCHAR(20) NOT NULL,
+    Pw VARCHAR(20) NOT NULL,
+    Name VARCHAR(20) NULL,
+    Phone VARCHAR(13) DEFAULT 'FOO',
+    Email VARCHAR(100) NOT NULL,
+    Address VARCHAR(12) NULL
 ) ENGINE=INNODB;
 
 
@@ -19,49 +19,49 @@ CREATE TABLE user(
 -- ================================================================
 
 -- 제품 타입 ( 전자제품 / 식자재 / 의류 / 도서 ...)
-CREATE TABLE productType(
-    productTypeSeq INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(20) NOT NULL
+CREATE TABLE ProductType(
+    ProductTypeSeq INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(20) NOT NULL
 ) ENGINE=INNODB;
 
 -- 상위 분류 테이블
-CREATE TABLE mainClass(
-    mainClassSeq INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(20) NOT NULL,
-    productTypeSeq INT NOT NULL
+CREATE TABLE MainClass(
+    MainClassSeq INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(20) NOT NULL,
+    ProductTypeSeq INT NOT NULL
 ) ENGINE=INNODB;
 
 -- 하위 분류 테이블
-CREATE TABLE subClass(
-    subClassSeq INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(20) NOT NULL,
-    productTypeSeq INT NOT NULL,
-    mainClassSeq INT NOT NULL
+CREATE TABLE SubClass(
+    SubClassSeq INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(20) NOT NULL,
+    ProductTypeSeq INT NOT NULL,
+    MainClassSeq INT NOT NULL
 ) ENGINE=INNODB;
 
 -- 제조사 테이블
-CREATE TABLE company(
-    companySeq INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(20) NOT NULL,
-    productTypeSeq INT NOT NULL,
-    mainClassSeq INT NOT NULL,
-    subClassSeq INT NOT NULL
+CREATE TABLE Company(
+    CompanySeq INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(20) NOT NULL,
+    ProductTypeSeq INT NOT NULL,
+    MainClassSeq INT NOT NULL,
+    SubClassSeq INT NOT NULL
 ) ENGINE=INNODB;
 
 -- ================================================================
 
 -- 제품 테이블
-CREATE TABLE product(
-    productSeq INT PRIMARY KEY AUTO_INCREMENT,
-    thumnail VARCHAR(100) NOT NULL,
-    price INT NOT NULL,
-    name INT NOT NULL,
-    productTypeSeq INT NOT NULL
+CREATE TABLE Product(
+    ProductSeq INT PRIMARY KEY AUTO_INCREMENT,
+    Thumnail VARCHAR(100) NOT NULL,
+    Price INT NOT NULL,
+    Name INT NOT NULL,
+    ProductTypeSeq INT NOT NULL
 ) ENGINE=INNODB;
 
 -- 구매 목록 테이블
-CREATE TABLE purchase(
-    purchaseSeq INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Purchase(
+    PurchaseSeq INT PRIMARY KEY AUTO_INCREMENT,
     purchaseDate DATE NOT NULL,
     isDel BIT NOT NULL DEFAULT 0, 
     delDate DATE NULL,
@@ -154,10 +154,10 @@ END
 -- **************************************************************
 
 -- [category data]
--- 전자제품
--- 식자재            
--- 의류
--- 도서
+-- 전자제품 (electrons)
+-- 식자재 (foods)           
+-- 의류 (cloths)
+-- 도서 (books)
 
 -- - 상위 제품군 : 차량용 / 컴퓨터 
 -- - 상위 제품군 : 다이어트 식품 / 간식  

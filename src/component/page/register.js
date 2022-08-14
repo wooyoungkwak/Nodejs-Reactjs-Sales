@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Footer from '../frame/footer';
 
 const Register = () => {
     return (
@@ -58,6 +59,7 @@ const Register = () => {
                     </div>
                 </main>
             </div>
+            <Footer />
         </div>
     );
 };

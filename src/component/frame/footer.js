@@ -1,10 +1,10 @@
 const Footer = () => {
     return (
         <div id="layoutAuthentication_footer">
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2022</div>
+            <footer className="py-4 bg-light mt-auto">
+                <div className="container-fluid px-4">
+                    <div className="d-flex align-items-center justify-content-between small">
+                        <div className="text-muted">Copyright &copy; Your Website 2022</div>
                         <div>
                             <a href="#">Privacy Policy</a>
                             &middot;
