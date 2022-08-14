@@ -27,12 +27,12 @@ const Login = () => {
                                             </div>
                                             <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a className="small" href="password.html">Forgot Password?</a>
-                                                <a className="btn btn-primary" href="index.html">Login</a>
+                                                <a className="btn btn-primary" href="/electrons">Login</a>
                                             </div>
                                         </form>
                                     </div>
                                     <div className="card-footer text-center py-3">
-                                        <div className="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                        <div className="small"><a href="/register">Need an account? Sign up!</a></div>
                                     </div>
                                 </div>
                             </div>

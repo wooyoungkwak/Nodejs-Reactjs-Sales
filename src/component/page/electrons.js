@@ -4,28 +4,49 @@ import Footer from '../frame/footer';
 
 const Electron = () => {
     const cardStyle = {
-        top: "0.5 em", 
+        top: "0.5 em",
         right: "0.5 em"
-    }
+    };
+
+    const thumbnail = {
+        gtx1650: "https://img.danawa.com/prod_img/pcshop/img/277/776/img/2776277_1.jpg?shrink=330:330&v=2022081508"
+    };
+
+    const productName = {
+        gtx1650: "▶GTX1650◀ R3-4100 르누아르 /  게이밍 멀티코어 컴퓨터 (DNVG_03)"
+    };
+
+    const price = {
+        gtx1650: "￦769,000"
+    };
 
     return (
         <>
             <Nav />
-            <Header />
+            <Header title={"show the electrons"} />
             <section className="py-5">
                 <div className="container px-4 px-lg-5 mt-5">
                     <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                         <div className="col mb-5">
                             <div className="card h-100">
-                                <img className="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <img className="card-img-top" src={thumbnail.gtx1650} alt="..." />
                                 <div className="card-body p-4">
                                     <div className="text-center">
-                                        <h5 className="fw-bolder">Fancy Product</h5>
-                                        $40.00 - $80.00
+                                        <h5 className="fw-bolder">
+                                            {productName.gtx1650}
+                                        </h5>
+                                        {price.gtx1650}
                                     </div>
                                 </div>
                                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div className="text-center"><a className="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <div className="text-center"><a className="btn btn-outline-dark" href="#">상세보기</a></div>
+                                        </div>
+                                        <div className="col-6">
+                                            <div className="text-center"><a className="btn btn-outline-dark" href="#">구매</a></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
