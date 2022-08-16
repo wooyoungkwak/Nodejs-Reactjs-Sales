@@ -72,84 +72,98 @@ CREATE TABLE Purchase(
 -- ************************************************************
 
 -- 
+DELIMITER $$ 
 CREATE PROCEDURE setCategory (
     categoryType INT,
     _name VARCHAR(50),
-    _productTypeSeq int,
-    _mainClassSeq int,
-    _subClassSeq int
+    _productTypeSeq INT,
+    _mainClassSeq INT,
+    _subClassSeq INT
 )
 BEGIN
-
-    DECLARE @SEQ INT;
-
+    DECLARE SEQ INT;
+    
     CASE categoryType
-        WHEN categoryType = 1  THEN
-            INSERT INTO productType (name) VALUE (_name);
-        WHEN categoryType = 2  THEN
-            INSERT INTO mainClass (name, productTypeSeq) VALUE (_name, _productTypeSeq);
-        WHEN categoryType = 3  THEN
-            INSERT INTO subClass (name, productTypeSeq, mainClassSeq) VALUE (_name, _productTypeSeq, _mainClassSeq);
-        WHEN categoryType = 4  THEN
-            INSERT INTO company (name, productTypeSeq, mainClassSeq, subClassSeq) VALUE (_name, _productTypeSeq, _mainClassSeq, _subClassSeq);
+        WHEN 1  THEN 
+			INSERT INTO productType (name) VALUE (_name);
+        WHEN 2  THEN 
+			INSERT INTO mainClass (name, productTypeSeq) VALUE (_name, _productTypeSeq);
+        WHEN 3  THEN 
+			INSERT INTO subClass (name, productTypeSeq, mainClassSeq) VALUE (_name, _productTypeSeq, _mainClassSeq);
+        WHEN 4  THEN 
+			INSERT INTO company (name, productTypeSeq, mainClassSeq, subClassSeq) VALUE (_name, _productTypeSeq, _mainClassSeq, _subClassSeq);
+		ELSE
+			SElECT SEQ;
     END CASE;
-END$$
-DELIMITER;
+END $$
+
+DELIMITER ;
 
 -- 
+DELIMITER $$ 
 CREATE PROCEDURE setCategoryByParent (
     categoryType INT,
     _myName VARCHAR(50),
     _parentName1 VARCHAR(50),
     _parentName2 VARCHAR(50),
-    _parentName3 VARCHAR(50),
+    _parentName3 VARCHAR(50)
 )
 BEGIN
 
-    DECLARE @PARENT1_SEQ INT;
-    DECLARE @PARENT2_SEQ INT;
-    DECLARE @PARENT3_SEQ INT;
+    DECLARE PARENT1_SEQ INT;
+    DECLARE PARENT2_SEQ INT;
+    DECLARE PARENT3_SEQ INT;
 
-    CASE 
+    CASE categoryType
         WHEN categoryType = 1  THEN
             INSERT INTO productType (name) VALUE (_name);
         WHEN categoryType = 2  THEN
-            SET @PARENT1_SEQ = getId(2, _parentName1);
+            SET PARENT1_SEQ = GETID(categoryType, _parentName1);
             INSERT INTO mainClass (name, productTypeSeq) VALUE (_name, PARENT1_SEQ);
         WHEN categoryType = 3  THEN
-            SET @PARENT1_SEQ = getId(2, _parentName1);
-            SET @PARENT2_SEQ = getId(2, _parentName2);
+            SET PARENT1_SEQ = GETID(categoryType, _parentName1);
+            SET PARENT2_SEQ = GETID(categoryType, _parentName2);
             INSERT INTO subClass (name, productTypeSeq, mainClassSeq) VALUE (_name, PARENT1_SEQ, PARENT2_SEQ);
         WHEN categoryType = 4  THEN
-            SET @PARENT1_SEQ = getId(2, _parentName1);
-            SET @PARENT2_SEQ = getId(2, _parentName2);
-            SET @PARENT3_SEQ = getId(2, _parentName3);
-            INSERT INTO company (name, productTypeSeq, mainClassSeq, subClassSeq) VALUE (_name, @PARENT1_SEQ, @PARENT2_SEQ, @PARENT3_SEQ);
+            SET PARENT1_SEQ = GETID(categoryType, _parentName1);
+            SET PARENT2_SEQ = GETID(categoryType, _parentName2);
+            SET PARENT3_SEQ = GETID(categoryType, _parentName3);
+            INSERT INTO company (name, productTypeSeq, mainClassSeq, subClassSeq) VALUE (_name, PARENT1_SEQ, PARENT2_SEQ, PARENT3_SEQ);
     END CASE;
-END
+END$$
 
-CREATE FUNCTION getId(
+DELIMITER ;
+
+--
+DELIMITER $$ 
+
+DROP FUNCTION IF EXISTS GETID;
+
+CREATE FUNCTION GETID(
     categoryType int,
     _name VARCHAR(50)
 )
 RETURNS INT
 BEGIN
 
-    DECLARE @SEQ INT;
+    DECLARE SEQ INT;
 
-    CASE 
-        WHEN categoryType = 1  THEN
-            SELECT productTypeSeq INTO(@SEQ ) FROM product WHERE name = _name;
-        WHEN categoryType = 2  THEN
-            SELECT mainClassSeq INTO(@SEQ) FROM mainClass WHERE name = _name;
-        WHEN categoryType = 3  THEN
-            SELECT subClassSeq INTO(@SEQ) FROM subClass WHERE name = _name;
-        WHEN categoryType = 4  THEN
-            SELECT companySeq INTO(@SEQ) FROM company WHERE name = _name;
+    CASE categoryType
+        WHEN 1  THEN
+            SELECT productTypeSeq INTO SEQ FROM product WHERE name = _name;             
+        WHEN 2  THEN
+            SELECT mainClassSeq INTO SEQ FROM mainClass WHERE name = _name;
+        WHEN 3  THEN
+            SELECT subClassSeq INTO SEQ  FROM subClass WHERE name = _name;
+        WHEN 4  THEN
+            SELECT companySeq INTO SEQ  FROM company WHERE name = _name;
     END CASE;
 
-    RETURN @SEQ;
-END 
+    RETURN SEQ;
+END$$
+
+DELIMITER ;
+
 
 -- **************************************************************
 
